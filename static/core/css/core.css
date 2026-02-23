@@ -1,0 +1,154 @@
+* { box-sizing: border-box; }
+body { 
+    margin: 0; 
+    font-family: system-ui, Arial, sans-serif; 
+    background: #f6f6f6; 
+    overflow: hidden;
+}
+
+.page{
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 18px;
+  padding: 22px 18px 54px;
+}
+
+/* TOP shelf */
+.shelf{
+  padding: 6px 0;
+}
+
+/* Make overlapping possible */
+.shelf__row{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+  
+    /* IMPORTANT: we’ll control spacing via negative margins on cards */
+    gap: 0;
+  
+    padding: 12px 10px 18px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Default: slightly overlapped */
+  .cover-card{
+    position: relative;
+    flex: 0 0 auto;
+  
+    width: 180px;
+    height: 260px;
+  
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  
+    /* overlap neighbors */
+    margin-left: -36px;          /* adjust overlap strength */
+  }
+  .cover-card:first-child{ margin-left: 0; }
+  
+  /* Slanted look */
+  .cover-card{
+    transform: perspective(900px) rotateY(-18deg) rotateZ(-6deg);
+    transform-origin: left center;
+    filter: drop-shadow(0 18px 24px rgba(0,0,0,.18));
+    transition: transform 180ms ease, filter 180ms ease;
+    scroll-snap-align: center;
+  }
+  
+  /* Base layer stacking: later items slightly above earlier */
+  .cover-card{ z-index: 1; }
+  .cover-card:hover{ z-index: 5; }
+  
+  /* hover lift */
+  .cover-card:hover{
+    transform: perspective(900px) rotateY(-18deg) rotateZ(-6deg) translateY(-10px) translateX(6px);
+    filter: drop-shadow(0 26px 30px rgba(0,0,0,.28));
+  }
+  
+  /* Selected: comes forward, faces camera, breaks overlap */
+  .cover-card.is-selected{
+    z-index: 10;
+    margin-left: -10px; /* reduce overlap so it has breathing room */
+    transform: none;
+    filter: drop-shadow(0 30px 36px rgba(0,0,0,.32));
+  }
+  
+  /* Optional: slightly enlarge selected */
+  .cover-card.is-selected{
+    width: 220px;
+    height: 320px;
+  }
+  
+  .cover-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+  }
+
+/* hover lift */
+.cover-card:hover{
+  transform: perspective(900px) rotateY(-18deg) rotateZ(-6deg) translateY(-10px) translateX(6px);
+  filter: drop-shadow(0 26px 30px rgba(0,0,0,.28));
+}
+
+/* selected highlight */
+.cover-card.is-selected{
+  transform: perspective(900px) rotateY(-8deg) rotateZ(-2deg) translateY(-6px) translateX(10px);
+  filter: drop-shadow(0 30px 36px rgba(0,0,0,.32));
+}
+
+/* BOTTOM details shelf */
+.details{
+  display: grid;
+  place-items: center;
+  padding: 10px 0;
+}
+
+.details__card{
+  width: min(760px, 95%);
+  text-align: center;
+}
+
+.details__img{
+  width: min(420px, 100%);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 28px 60px rgba(0,0,0,.25);
+  background: #ddd;
+}
+
+.details__title{
+  margin: 14px 0 6px;
+  font-size: 28px;
+}
+
+.details__sub{
+  margin: 0 0 10px;
+  opacity: .75;
+}
+
+.details__desc{
+  margin: 0 auto;
+  max-width: 62ch;
+  line-height: 1.55;
+  opacity: .9;
+}
+
+.empty{
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 32px;
+}

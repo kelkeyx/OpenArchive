@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <title>OpenArchive</title>
+  <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+  <script defer src="{% static 'core/js/core.js' %}"></script>
+</head>
+<body>
+
+  <div class="page">
+
+    {% if books %}
+      <!-- TOP SHELF: covers -->
+      <section class="shelf" aria-label="Book cover shelf">
+        <div class="shelf__row" id="shelfRow">
+          {% for book in books %}
+            <button
+              class="cover-card"
+              type="button"
+              data-title="{{ book.title|escape }}"
+              data-author="{{ book.author|escape }}"
+              data-genre="{{ book.genre|default_if_none:''|escape }}"
+              data-year="{{ book.release_year }}"
+              data-description="{{ book.description|default_if_none:''|escape }}"
+              data-img="{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'core/img/placeholder.jpg' %}{% endif %}"
+            >
+              <img
+                src="{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'core/img/placeholder.jpg' %}{% endif %}"
+                alt="{{ book.title }} cover"
+                loading="lazy"
+              >
+            </button>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- BOTTOM SHELF: details -->
+      <section class="details" aria-live="polite">
+        <div class="details__card">
+          <h2 class="details__title"></h2>
+          <p class="details__sub"></p>
+          <p class="details__desc"></p>
+        </div>
+      </section>
+
+    {% else %}
+      <section class="empty">
+        <h2>No books yet</h2>
+        <p>Add a book in the admin to see it appear here.</p>
+        <p><a href="/admin/">Go to admin</a></p>
+      </section>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>
