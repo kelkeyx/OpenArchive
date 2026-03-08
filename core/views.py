@@ -3,4 +3,4 @@ from .models import Book
 
 def book_list(request):
     books = Book.objects.select_related("author", "genre").order_by("-created_at")
-    return render(request, "archive/index.html", {"books": books})
+    return render(request, "index.html", {"books": books})

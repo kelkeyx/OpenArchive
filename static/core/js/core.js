@@ -5,8 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const strip          = document.getElementById("bookStrip");
     if (!stage || !strip) return;
 
-    const originalCards  = Array.from(strip.querySelectorAll(".book-card"));
-    if (!originalCards.length) return;
+    /* ── BUILD CARDS FROM window.BOOKS ──────────────────── */
+    const books = window.BOOKS || [];
+    if (!books.length) {
+        document.body.innerHTML = `
+            <main class="empty-state">
+                <h2>No books found</h2>
+                <p>Add entries to <code>books.js</code> to get started.</p>
+            </main>`;
+        return;
+    }
+
+    books.forEach(book => {
+        const btn = document.createElement("button");
+        btn.className = "book-card";
+        btn.type = "button";
+        btn.dataset.title       = book.title       || "";
+        btn.dataset.author      = book.author      || "";
+        btn.dataset.genre       = book.genre       || "";
+        btn.dataset.year        = book.year        || "";
+        btn.dataset.description = book.description || "";
+        btn.dataset.img         = book.img         || "";
+
+        const img = document.createElement("img");
+        img.src     = book.img || "";
+        img.alt     = (book.title || "") + " cover";
+        img.loading = "lazy";
+
+        btn.appendChild(img);
+        strip.appendChild(btn);
+    });
+
+    const originalCards = Array.from(strip.querySelectorAll(".book-card"));
 
     const focusCoverImg  = document.getElementById("focusCoverImg");
     const metaTimestamp  = document.getElementById("metaTimestamp");
@@ -122,8 +152,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ── PANEL — always open, no toggle needed ──────────── */
+    /* ── PANEL — always shown ────────────────────────────── */
     metaPanel.classList.add("is-visible");
+
+    /* ── COVER / INFO MODE TOGGLE ────────────────────────── */
+    const bookFocus    = document.getElementById("bookFocus");
+    const btnModeToggle = document.getElementById("btnModeToggle");
+
+    btnModeToggle.addEventListener("click", () => {
+        bookFocus.classList.toggle("info-mode");
+        btnModeToggle.setAttribute("aria-label",
+            bookFocus.classList.contains("info-mode") ? "Show cover" : "Show description"
+        );
+    });
+
+    // Switching to a new book resets to cover-mode
+    function resetMode() {
+        bookFocus.classList.remove("info-mode");
+    }
 
     /* ── SET SELECTED CARD ───────────────────────────────── */
     function centerCard(card, smooth = true) {
@@ -143,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cards.forEach(c => c.classList.remove("is-selected"));
         card.classList.add("is-selected");
 
+        resetMode();
         updateFocus(card);
         if (center) centerCard(card, smooth);
     }

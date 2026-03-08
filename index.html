@@ -1,0 +1,95 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenArchive</title>
+  <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+  <!-- Inject book data from Django models into window.BOOKS before core.js runs -->
+  <script>
+  window.BOOKS = [
+    {% for book in books %}
+    {
+      title:       "{{ book.title|escapejs }}",
+      author:      "{{ book.author|escapejs }}",
+      genre:       "{{ book.genre|default_if_none:''|escapejs }}",
+      year:        "{{ book.release_year }}",
+      description: "{{ book.description|default_if_none:''|escapejs }}",
+      img:         "{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'core/img/placeholder.jpg' %}{% endif %}"
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+  </script>
+  <script defer src="{% static 'core/js/core.js' %}"></script>
+</head>
+<body>
+
+<main class="archive-stage" id="archiveStage">
+
+  <div class="book-strip-wrap">
+    <div class="book-strip" id="bookStrip"></div>
+  </div>
+
+  <div class="corner-pile corner-pile--tr" id="pileTR" aria-hidden="true">
+    <div class="corner-pile__inner"></div>
+  </div>
+  <div class="corner-pile corner-pile--bl" id="pileBL" aria-hidden="true">
+    <div class="corner-pile__inner"></div>
+  </div>
+
+  <div class="ui-top-left" id="uiDate">
+    <div id="uiDateLine">—</div>
+    <div id="uiTimeLine">—</div>
+  </div>
+  <div class="ui-top-center">every : archive</div>
+
+  <section class="book-focus" id="bookFocus" aria-live="polite">
+    <div class="book-focus__cover-wrap" id="focusCoverWrap">
+      <img class="book-focus__cover-img" id="focusCoverImg" src="" alt="">
+      <button class="btn-mode-toggle" id="btnModeToggle" type="button" aria-label="Toggle description">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6">
+          <polyline points="2,4 6.5,9 11,4"/>
+        </svg>
+      </button>
+    </div>
+    <button class="btn-info-toggle" id="btnInfoToggle" type="button" aria-label="Show book info"></button>
+    <div class="book-focus__meta-panel" id="metaPanel" role="region" aria-label="Book details">
+      <div class="book-focus__meta-timestamp" id="metaTimestamp"></div>
+      <div class="book-focus__meta-location" id="metaLocation"></div>
+      <div class="book-focus__meta-author" id="metaAuthor"></div>
+      <div class="book-focus__meta-desc" id="metaDesc"></div>
+      <div class="book-focus__meta-actions">
+        <button class="meta-action-btn" id="metaBtnReadMore" type="button">
+          <span class="meta-action-icon">↗</span><span>read more</span>
+        </button>
+        <button class="meta-action-btn" id="metaBtnSave" type="button">
+          <span class="meta-action-icon">⊞</span><span>save this book</span>
+        </button>
+        <button class="meta-action-btn" id="metaBtnCopy" type="button">
+          <span class="meta-action-icon">⎘</span><span>copy title</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="ui-bottom-right">
+    <button class="icon-btn" id="btnExpand" type="button" aria-label="Fullscreen cover">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
+        <polyline points="1,5 1,1 5,1"/>
+        <polyline points="9,1 13,1 13,5"/>
+        <polyline points="13,9 13,13 9,13"/>
+        <polyline points="5,13 1,13 1,9"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="btnKeyHelp" type="button" aria-label="Keyboard shortcuts">?</button>
+  </div>
+
+  <div class="fullscreen-overlay" id="fullscreenOverlay" role="dialog" aria-modal="true">
+    <button class="btn-fullscreen-close" id="btnFullscreenClose" type="button">×</button>
+    <img id="fullscreenImg" src="" alt="">
+  </div>
+
+</main>
+</body>
+</html>

@@ -179,21 +179,28 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    /* shift upward so image + panel both fit without clipping */
-    transform: translate(-50%, calc(-50% - 60px));
+    transform: translate(-50%, calc(-50% - 55px));
     z-index: 10;
+    width: clamp(280px, 38vw, 560px);
 }
 
+/* ── COVER WRAP ──────────────────────────────────────── */
 .book-focus__cover-wrap {
     position: relative;
-    width: clamp(280px, 38vw, 560px);
+    width: 100%;
     aspect-ratio: 4 / 2.85;
     overflow: hidden;
-    box-shadow:
-        0 24px 70px rgba(0,0,0,0.22),
-        0 4px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.1);
     background: #bbb;
     cursor: pointer;
+    transition: aspect-ratio 380ms ease, height 380ms ease;
+    flex-shrink: 0;
+}
+
+/* info-mode: image shrinks to a narrow banner */
+.book-focus.info-mode .book-focus__cover-wrap {
+    aspect-ratio: 4 / 1;
+    cursor: default;
 }
 
 .book-focus__cover-img {
@@ -201,6 +208,12 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 380ms ease;
+}
+
+/* in info-mode keep the image showing top portion */
+.book-focus.info-mode .book-focus__cover-img {
+    object-position: center 20%;
 }
 
 .book-focus__cover-img.is-entering {
@@ -212,11 +225,43 @@ body {
     to   { opacity: 1; transform: scale(1); }
 }
 
+/* ── MODE TOGGLE BUTTON (sits on image bottom-right) ─── */
+.btn-mode-toggle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    transition: background 150ms;
+    z-index: 5;
+    backdrop-filter: blur(4px);
+}
+
+.btn-mode-toggle:hover { background: rgba(0,0,0,0.7); }
+
+.btn-mode-toggle svg {
+    width: 13px;
+    height: 13px;
+    transition: transform 300ms ease;
+}
+
+/* in info-mode, icon flips to signal "collapse" */
+.book-focus.info-mode .btn-mode-toggle svg {
+    transform: rotate(180deg);
+}
+
 /* ── METADATA PANEL ──────────────────────────────────── */
 .book-focus__meta-panel {
-    position: absolute;
-    top: calc(clamp(280px, 38vw, 560px) / (4 / 2.85) + 14px);
-    left: 0;
     width: 100%;
     background: #fff;
     padding: 13px 16px 11px;
@@ -224,15 +269,10 @@ body {
     font-size: 0.67rem;
     line-height: 1.75;
     color: #111;
-    /* border-radius: 8px; */
-    border-left: 2px solid black;
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 30;
-    /* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);*/
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    /* always shown, sits directly below image */
+    margin-top: 0;
 }
-
-.book-focus__meta-panel.is-visible { opacity: 1; }
 
 .book-focus__meta-timestamp {
     color: rgba(0,0,0,0.4);
@@ -253,21 +293,29 @@ body {
     font-size: 0.63rem;
 }
 
+/* ── DESCRIPTION — hidden in cover-mode, shown in info-mode */
 .book-focus__meta-desc {
-    margin: 8px 0 10px;
     font-size: 0.63rem;
-    line-height: 1.65;
-    color: rgba(0,0,0,0.6);
-    max-height: 5.5em;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    /* collapsed by default */
+    max-height: 0;
     overflow: hidden;
-    /* subtle fade at bottom if text overflows */
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    opacity: 0;
+    transition: max-height 400ms ease, opacity 300ms ease, margin 300ms ease;
+    margin: 0;
+}
+
+.book-focus.info-mode .book-focus__meta-desc {
+    max-height: 200px;
+    opacity: 1;
+    margin: 8px 0 4px;
 }
 
 .book-focus__meta-actions {
     border-top: 1px solid rgba(0,0,0,0.07);
     padding-top: 8px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -298,10 +346,8 @@ body {
     flex-shrink: 0;
 }
 
-/* ── TOGGLE PANEL BUTTON — hidden, panel always visible ── */
-.btn-info-toggle {
-    display: none;
-}
+/* ── TOGGLE PANEL BUTTON — hidden ────────────────────── */
+.btn-info-toggle { display: none; }
 
 /* ── BOTTOM-RIGHT ICON BUTTONS ───────────────────────── */
 .ui-bottom-right {
