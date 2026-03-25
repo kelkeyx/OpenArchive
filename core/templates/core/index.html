@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpenArchive</title>
   <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
-  <!-- Inject book data from Django models into window.BOOKS before core.js runs -->
   <script>
-  window.BOOKS = [
-    {% for book in books %}
+  window.BOOKS = [{% for book in books %}
     {
       title:       "{{ book.title|escapejs }}",
       author:      "{{ book.author|escapejs }}",
@@ -17,8 +15,7 @@
       year:        "{{ book.release_year }}",
       description: "{{ book.description|default_if_none:''|escapejs }}",
       img:         "{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'core/img/placeholder.jpg' %}{% endif %}"
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}
+    }{% if not forloop.last %},{% endif %}{% endfor %}
   ];
   </script>
   <script defer src="{% static 'core/js/core.js' %}"></script>
@@ -27,10 +24,12 @@
 
 <main class="archive-stage" id="archiveStage">
 
+  <!-- ── BOOK STRIP (hero) ────────────────────────────── -->
   <div class="book-strip-wrap">
     <div class="book-strip" id="bookStrip"></div>
   </div>
 
+  <!-- ── CORNER PILES ─────────────────────────────────── -->
   <div class="corner-pile corner-pile--tr" id="pileTR" aria-hidden="true">
     <div class="corner-pile__inner"></div>
   </div>
@@ -38,12 +37,25 @@
     <div class="corner-pile__inner"></div>
   </div>
 
+  <!-- ── UI CHROME ────────────────────────────────────── -->
   <div class="ui-top-left" id="uiDate">
     <div id="uiDateLine">—</div>
     <div id="uiTimeLine">—</div>
   </div>
   <div class="ui-top-center">every : archive</div>
 
+  <!-- ── BOTTOM-LEFT: title + meta ────────────────────── -->
+  <div class="book-info-bl" id="bookInfoBL">
+    <div class="book-info-bl__title" id="infoTitle"></div>
+    <div class="book-info-bl__meta" id="infoMeta"></div>
+  </div>
+
+  <!-- ── BOTTOM-RIGHT: description ────────────────────── -->
+  <div class="book-info-br" id="bookInfoBR">
+    <div id="infoDesc"></div>
+  </div>
+
+  <!-- ── OLD FOCUS SECTION (hidden, kept for JS compat) ── -->
   <section class="book-focus" id="bookFocus" aria-live="polite">
     <div class="book-focus__cover-wrap" id="focusCoverWrap">
       <img class="book-focus__cover-img" id="focusCoverImg" src="" alt="">
@@ -53,12 +65,12 @@
         </svg>
       </button>
     </div>
-    <button class="btn-info-toggle" id="btnInfoToggle" type="button" aria-label="Show book info"></button>
-    <div class="book-focus__meta-panel" id="metaPanel" role="region" aria-label="Book details">
-      <div class="book-focus__meta-timestamp" id="metaTimestamp"></div>
-      <div class="book-focus__meta-location" id="metaLocation"></div>
-      <div class="book-focus__meta-author" id="metaAuthor"></div>
-      <div class="book-focus__meta-desc" id="metaDesc"></div>
+    <button class="btn-info-toggle" id="btnInfoToggle" type="button"></button>
+    <div class="book-focus__meta-panel" id="metaPanel">
+      <div id="metaTimestamp"></div>
+      <div id="metaLocation"></div>
+      <div id="metaAuthor"></div>
+      <div id="metaDesc"></div>
       <div class="book-focus__meta-actions">
         <button class="meta-action-btn" id="metaBtnReadMore" type="button">
           <span class="meta-action-icon">↗</span><span>read more</span>
@@ -73,6 +85,7 @@
     </div>
   </section>
 
+  <!-- ── BOTTOM-RIGHT BUTTONS ─────────────────────────── -->
   <div class="ui-bottom-right">
     <button class="icon-btn" id="btnExpand" type="button" aria-label="Fullscreen cover">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -85,6 +98,7 @@
     <button class="icon-btn" id="btnKeyHelp" type="button" aria-label="Keyboard shortcuts">?</button>
   </div>
 
+  <!-- ── FULLSCREEN OVERLAY ────────────────────────────── -->
   <div class="fullscreen-overlay" id="fullscreenOverlay" role="dialog" aria-modal="true">
     <button class="btn-fullscreen-close" id="btnFullscreenClose" type="button">×</button>
     <img id="fullscreenImg" src="" alt="">

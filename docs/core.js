@@ -39,10 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalCards = Array.from(strip.querySelectorAll(".book-card"));
 
     const focusCoverImg  = document.getElementById("focusCoverImg");
-    const metaTimestamp  = document.getElementById("metaTimestamp");
-    const metaLocation   = document.getElementById("metaLocation");
-    const metaAuthor     = document.getElementById("metaAuthor");
-    const metaDesc       = document.getElementById("metaDesc");
     const metaPanel      = document.getElementById("metaPanel");
     const btnExpand      = document.getElementById("btnExpand");
     const fullscreenOverlay = document.getElementById("fullscreenOverlay");
@@ -119,7 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buildCornerPiles();
 
-    /* ── UPDATE FEATURED IMAGE ───────────────────────────── */
+    /* ── UPDATE CORNER INFO PANELS ───────────────────────── */
+    const infoTitle = document.getElementById("infoTitle");
+    const infoMeta  = document.getElementById("infoMeta");
+    const infoDesc  = document.getElementById("infoDesc");
+
     function updateFocus(card) {
         const img   = card.dataset.img         || "";
         const title = card.dataset.title       || "Untitled";
@@ -128,47 +128,54 @@ document.addEventListener("DOMContentLoaded", () => {
         const year  = card.dataset.year        || "";
         const desc  = card.dataset.description || "";
 
-        // Meta panel content
-        const now = new Date();
-        const dateStr = now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric"}).toUpperCase();
-        const timeStr = now.toLocaleTimeString("en-US", { hour12: false });
-        metaTimestamp.textContent = `${dateStr}, ${timeStr}`;
-        metaLocation.textContent  = title.toUpperCase();
-        metaAuthor.textContent    = [author, genre, year].filter(Boolean).join(" / ");
-        if (metaDesc) metaDesc.textContent = desc;
+        // Corner panels
+        if (infoTitle) infoTitle.textContent = title;
+        if (infoMeta)  infoMeta.textContent  = [author, genre, year].filter(Boolean).join(" / ");
+        if (infoDesc)  infoDesc.textContent  = desc;
 
-        // Switch image with entrance animation
+        // Keep old hidden elements in sync for fullscreen / copy / save buttons
+        const metaTimestamp = document.getElementById("metaTimestamp");
+        const metaLocation  = document.getElementById("metaLocation");
+        const metaAuthor    = document.getElementById("metaAuthor");
+        const metaDescEl    = document.getElementById("metaDesc");
+        const focusCoverImg = document.getElementById("focusCoverImg");
+
+        if (metaTimestamp) {
+            const now = new Date();
+            metaTimestamp.textContent = now.toLocaleDateString("en-US",
+                { month: "long", day: "numeric", year: "numeric" }).toUpperCase()
+                + ", " + now.toLocaleTimeString("en-US", { hour12: false });
+        }
+        if (metaLocation) metaLocation.textContent = title.toUpperCase();
+        if (metaAuthor)   metaAuthor.textContent   = [author, genre, year].filter(Boolean).join(" / ");
+        if (metaDescEl)   metaDescEl.textContent   = desc;
+
+        // Update fullscreen image src
         if (img && img !== currentImgSrc) {
             currentImgSrc = img;
-            focusCoverImg.classList.remove("is-entering");
-            // Force reflow
-            void focusCoverImg.offsetWidth;
-            focusCoverImg.src = img;
-            focusCoverImg.alt = title;
-            focusCoverImg.classList.add("is-entering");
-
-            // Also update fullscreen img if open
+            if (focusCoverImg) {
+                focusCoverImg.src = img;
+                focusCoverImg.alt = title;
+            }
+            const fullscreenImg = document.getElementById("fullscreenImg");
             if (fullscreenImg) fullscreenImg.src = img;
         }
     }
 
-    /* ── PANEL — always shown ────────────────────────────── */
-    metaPanel.classList.add("is-visible");
+    /* ── PANEL — kept for compatibility ─────────────────── */
+    if (metaPanel) metaPanel.classList.add("is-visible");
 
     /* ── COVER / INFO MODE TOGGLE ────────────────────────── */
-    const bookFocus    = document.getElementById("bookFocus");
+    const bookFocus     = document.getElementById("bookFocus");
     const btnModeToggle = document.getElementById("btnModeToggle");
+    if (btnModeToggle) {
+        btnModeToggle.addEventListener("click", () => {
+            if (bookFocus) bookFocus.classList.toggle("info-mode");
+        });
+    }
 
-    btnModeToggle.addEventListener("click", () => {
-        bookFocus.classList.toggle("info-mode");
-        btnModeToggle.setAttribute("aria-label",
-            bookFocus.classList.contains("info-mode") ? "Show cover" : "Show description"
-        );
-    });
-
-    // Switching to a new book resets to cover-mode
     function resetMode() {
-        bookFocus.classList.remove("info-mode");
+        if (bookFocus) bookFocus.classList.remove("info-mode");
     }
 
     /* ── SET SELECTED CARD ───────────────────────────────── */
@@ -258,14 +265,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ── FULLSCREEN ─────────────────────────────────────── */
     function openFullscreen() {
-        fullscreenImg.src = currentImgSrc;
-        fullscreenOverlay.classList.add("is-open");
+        const overlay = document.getElementById("fullscreenOverlay");
+        const img     = document.getElementById("fullscreenImg");
+        if (img) img.src = currentImgSrc;
+        if (overlay) overlay.classList.add("is-open");
     }
 
     function closeFullscreen() {
-        fullscreenOverlay.classList.remove("is-open");
-        // reset to image mode
-        fullscreenImg.style.display = "";
+        const overlay = document.getElementById("fullscreenOverlay");
+        if (overlay) overlay.classList.remove("is-open");
+        const img = document.getElementById("fullscreenImg");
+        if (img) img.style.display = "";
         const textEl = document.getElementById("fsDescText");
         if (textEl) textEl.style.display = "none";
     }
