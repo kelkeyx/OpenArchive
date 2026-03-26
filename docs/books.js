@@ -45,7 +45,7 @@ window.BOOKS = [
   {
     title: "Zhuangzi",
     author: "Burton Watson",
-    genre: "",
+    genre: "Philosophy",
     year: "",
     description: "",
     img: "covers/Zhuangzi.jpg"
@@ -54,112 +54,112 @@ window.BOOKS = [
     title: "In Praise of Darmadhatu",
     author: "Nagarjuna",
     genre: "",
-    year: "",
+    year: "2008",
     description: "",
     img: "covers/In-Praise-of-Darmadhatu.jpg"
   },
   {
     title: "The Gospel of Sri Ramakrishna",
-    author: "",
-    genre: "",
-    year: "",
-    description: "",
+    author: "Mahendranath Gupta",
+    genre: "Spirituality",
+    year: "1902",
+    description: "The Gospel of Sri Ramakrishna is an English translation of the Bengali religious text Sri Ramakrishna Kathamrita by Swami Nikhilananda. The text records conversations of Ramakrishna with his disciples, devotees and visitors, recorded by Mahendranath Gupta, who wrote the book under the pseudonym of M. The first edition was published in 1942.",
     img: "covers/The-Gospel-of-Sri-Ramakrishna.jpg"
   },
   {
     title: "Tenth of December",
     author: "George Saunders",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Short Story Collection",
+    year: "2013",
+    description: "Tenth of December is a collection of short stories by American author George Saunders. It contains stories published in various magazines between 1995 and 2012. The book was published on January 8, 2013, by Random House. One of the stories, Home, was a 2011 Bram Stoker Award finalist. Tenth of December was selected as one of the 10 Best Books of 2013 by the editors of The New York Times Book Review. The collection also won The Story Prize (2013) for short-story collections and the inaugural Folio Prize (2014).",
     img: "covers/Tenth-of-December.jpg"
   },
   {
     title: "Light on the Doctrine of Karma",
     author: "Arijoy Bhattacharya",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophy",
+    year: "2019",
+    description: "On Kashmir Śaivism with indepth study of Kula and Krama thoeries; English translation of the commentary on Kramastotra of Siddhanātha ; includes Sanskrit text of Kramastotra.",
     img: "covers/Light-on-the-Doctrine-of-Karma.jpg"
   },
   {
     title: "A Practical Guide to Buddhist Meditation",
     author: "Paramanada",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Meditation / Religion & Spirituality",
+    year: "1996",
+    description: "A Practical Guide to Buddhist Meditation by Paramananda is a non-fiction, religious, and spiritual self-help book focusing on mindfulness and loving-kindness (Metta Bhavana). First published in 1996, it provides accessible instructions for cultivating a deeper awareness of the mind and body. It is widely available, with later editions published by Barnes & Noble.",
     img: "covers/A-Practical-Guide-to-Buddhist-Meditation.jpg"
   },
   {
     title: "A Prophet for the New Age",
     author: "Richard Schiffman",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Religion, Biography & Autobiography",
+    year: "1989",
+    description: "A Prophet for the New Age by Richard Schiffman is a comprehensive, accessible biography highlighting the 19th-century Hindu saint's life and practical spiritual teachings. Published by Paragon House, it focuses on Ramakrishnas mystical experiences, teachings on universal spiritual unity, and practical applications of yoga for a modern audience.",
     img: "covers/A-Prophet-for-the-New-Age.jpg"
   },
   {
     title: "Abhinavaguptas Commentary on the Bhagavad Gita",
     author: "Gitartha Samgraha",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophical Commentary",
+    year: "10th-11th century CE",
+    description: " The title means Summary of the Meaning of the Gita. It interprets the Bhagavad Gita through the lens of Trika Shaivism, emphasizing that ultimate liberation is achieved through the realization of the unity of all life, moving beyond orthodox ritual action",
     img: "covers/Abhinavaguptas-Commentary-on-the-Bhagavad-Gita.jpg"
   },
   {
     title: "Auspicious Wisdom",
     author: "Dougless Renfrew Brooks",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophy",
+    year: "1992",
+    description: "Rooting itself in Kashmir Shaivism, Śrividyā became a force in South India no later than the seventh century, and eventually supplanted the Trika as the dominant Tantric tradition in Kashmir. This is the first comprehensive study of the texts and traditions of this influential school of goddess-centered, Śākta, Tantrism. Centering on the goddess's three manifestations-the beneficent deity Lalita Tripurasundari, her mantra, and the visually striking sricakra-Śrividyā creates a systematic esoteric discipline that combines elements of the yogas of knowledge, of devotion, and of ritual. Utilizing canonical works, historical commentaires, and the interpretive insights of living practitioners, this book explores the theological and ritual theories that form the basis for Śrividyā practice and offers new methods for critical and comparative studies of esoteric Hinduism.",
     img: "covers/Auspicious-Wisdom.jpg"
   },
   {
     title: "Autobiography of a Yogi",
     author: "Paramahansa Yogananda",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Spiritual Autobiography",
+    year: "1946",
+    description: "Autobiography of a Yogi is a spiritual classic by Paramahansa Yogananda, detailing his life from childhood in India, his search for a guru, his training in Kriya Yoga, and his mission to bring yoga to the West, introducing readers to Eastern spiritual science and the laws behind miracles. Published in 1946, it's considered a masterpiece that has influenced millions, introducing figures like Mahatma Gandhi and Rabindranath Tagore, and remains a best-seller in spiritual literature. ",
     img: "covers/Autobiography-of-a-Yogi.jpg"
   },
   {
     title: "Beloved",
     author: "Toni Morrison",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Historical Fiction",
+    year: "1987",
+    description: "explores the devastating legacy of slavery through the story of Sethe, a formerly enslaved woman in post-Civil War Ohio, whose home is haunted by the ghost of her baby, and who is visited by a mysterious young woman who calls herself Beloved. The novel blends magical realism with historical truth, using a fragmented narrative to delve into trauma, memory, and the struggle for freedom and selfhood.",
     img: "covers/Beloved.jpg"
   },
   {
     title: "Bhagavad Gita As It Is",
     author: "Bhaktivedanta Swami Prabhupada",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophy",
+    year: "1968",
+    description: "Bhagavad-gītā As It Is is a renowned translation and commentary of the 700-verse Hindu scripture by A.C. Bhaktivedanta Swami Prabhupada, first published in 1968. It presents the battlefield conversation between Krishna and Arjuna, emphasizing bhakti yoga (devotional service) as the ultimate path, while providing extensive purports reflecting the Gaudiya Vaishnava tradition.",
     img: "covers/Bhagavad-Gita-As-It-Is.jpg"
   },
   {
     title: "Bhagavad Gita",
     author: "Swami Gambhiranada",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Spiritual Commentary",
+    year: "1984",
+    description: "A faithful rendering of the Bhagavad Gita with the commentary of Shankara by a highly regarded monk and scholar of the Ramakrishna Order.br> Devanagri text with English rendering. Includes index to first words plus a separate index of all the words of the Sanskrit text. Especially useful for students and scholars.",
     img: "covers/Bhagavad-Gita.jpg"
   },
   {
     title: "Bhakti Schools of Vedanta",
     author: "Swami Tapasyanada",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophy",
+    year: "1990",
+    description: "The Bhakti Schools of Vedanta are prominent Vaishnava philosophical traditions that interpret the Upanishads, Brahma Sutras, and Bhagavad Gita as promoting devotion (Bhakti) to a personal God (Ishvara), rather than strict non-dualism. These schools emphasize a personal, loving relationship with Vishnu or Krishna as the ultimate path to liberation.",
     img: "covers/Bhakti-Schools-of-Vedanta.jpg"
   },
   {
     title: "Billy Budd Sailor",
     author: "Herman Melville",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Nautical Fiction",
+    year: "1924",
+    description: "Billy Budd, Sailor is Herman Melville's final, posthumously published novella, a tragic tale of innocence versus evil set on a British warship during the Napoleonic Wars, where the handsome and good-natured sailor Billy Budd is falsely accused of mutiny by the malicious master-at-arms, Claggart, leading to a trial and execution that explores themes of law, justice, and human nature. Discovered unfinished in Melville's papers after his 1891 death, it became a classic, celebrated for its complex characters and moral ambiguity, particularly the conflict between the innocent Billy and the villainous Claggart, and the difficult decision faced by Captain Vere. ",
     img: "covers/Billy-Budd-Sailor.jpg"
   },
   {
@@ -173,17 +173,17 @@ window.BOOKS = [
   {
     title: "Brat",
     author: "Gabriel Smith",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Contemporary Gothic Horror",
+    year: "2024",
+    description: "Brat is a 2024 debut novel by British author Gabriel Smith, a darkly humorous and formally inventive story about a young writer named Gabriel dealing with grief, family secrets, and a crumbling sense of self as he clears out his deceased parents' home. Described as a suburban gothic or haunted house benzo novel, it follows the protagonist as his sanity unravels amidst strange occurrences, including shifting manuscripts and a mysterious figure in his garden, blending elements of ghost stories, autofiction, and Gen Z alienation. ",
     img: "covers/Brat.jpg"
   },
   {
     title: "Chicago Addresses",
     author: "Swami Vivekananda",
-    genre: "",
-    year: "",
-    description: "",
+    genre: "Philosophy, Religion",
+    year: "1893",
+    description: "Chicago Addresses by Swami Vivekananda is a collection of his historic 1893 speeches at the Parliament of World's Religions in Chicago, advocating for religious harmony, tolerance, and Vedantic philosophy. These addresses introduced his message of universal acceptance, non-dualism, and the divinity of the soul, aiming to bridge the gap between science and religion.",
     img: "covers/Chicago-Addresses.jpg"
   },
   {
