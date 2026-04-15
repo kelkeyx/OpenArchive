@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function centerCard(card, smooth = true) {
         const stripRect = strip.getBoundingClientRect();
         const cardRect  = card.getBoundingClientRect();
+        const CARD_OFFSET = -(100 + 12) * 2;
         const delta = (cardRect.left + cardRect.width / 2) - (stripRect.left + stripRect.width / 2);
 
         isProgrammaticScroll = true;
