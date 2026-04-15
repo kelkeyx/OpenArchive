@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ── NEAREST CARD ───────────────────────────────────── */
     function nearestCardToCenter() {
         const stripRect   = strip.getBoundingClientRect();
-        const stripCenter = stripRect.left + stripRect.width / 2;
+        const CARD_OFFSET = -(100 + 12) * 2;
+        const stripCenter = stripRect.left + stripRect.width / 2 + CARD_OFFSET;
         let nearest = null, bestDist = Infinity;
 
         cards.forEach(card => {
