@@ -154,8 +154,8 @@ body {
 }
 
 .book-info-bl__title {
-    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-    font-weight: 500;
+    font-size: clamp(1.2rem, 1.4vw, 1.1rem);
+    font-weight: 550;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #111;
@@ -181,7 +181,7 @@ body {
     color: rgba(0,0,0,0.55);
     max-width: 260px;
     pointer-events: none;
-    text-align: right;
+    text-align: justify;
 }
 
 /* ── CORNER PILE VISUALS ─────────────────────────────── */
