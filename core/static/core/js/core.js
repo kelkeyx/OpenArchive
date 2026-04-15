@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const stripRect = strip.getBoundingClientRect();
         const cardRect  = card.getBoundingClientRect();
         const CARD_OFFSET = -(100 + 12) * 2;
-        const delta = (cardRect.left + cardRect.width / 2) - (stripRect.left + stripRect.width / 2);
+        const delta = (cardRect.left + cardRect.width / 2) - (stripRect.left + stripRect.width / 2) + CARD_OFFSET;
 
         isProgrammaticScroll = true;
         strip.scrollBy({ left: delta, behavior: smooth ? "smooth" : "auto" });
