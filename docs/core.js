@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const setWidth = strip.scrollWidth / COPIES;
             strip.scrollLeft = setWidth * 2;
             cards = Array.from(strip.querySelectorAll(".book-card"));
-            const startCard = cards[originalCards.length * 2];
+            const startCard = cards[originalCards.length * 2 - 2];
             setSelected(startCard, { center: true, smooth: false });
         });
     } else {
